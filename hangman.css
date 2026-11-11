@@ -9,3 +9,8 @@ body{
 #newgamearea{
     margin-top: 2em;
 }
+
+#guesses{
+    font-size: 1.2em;
+    margin-top: 1em;
+}
