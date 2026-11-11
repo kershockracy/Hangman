@@ -22,13 +22,32 @@ function newGame() {
 }
 function guess() {
     let input = document.getElementById("guess");
-    let letter = input.value;
-    if(word.indexOf(letter)<0){
+    let letter = input.value.toLowerCase();
+
+    input.value = "";
+
+    if (word === "" || gameFinished) {
+        return;
+    }
+
+    if (letter === "" || "abcdefghijklmnopqrstuvwxyz".indexOf(letter) < 0) {
+        document.getElementById("guesses").textContent = "Please enter one letter (A-Z).";
+        return;
+    }
+
+    if (guesses.indexOf(letter) >= 0) {
+        document.getElementById("guesses").textContent = "You already guessed " + letter + ". Guessed letters: " + guesses;
+        return;
+    }
+
+    if(word.indexOf(letter) < 0) {
         guessCount--;
     }
+
     guesses += letter;
     updateScreen();
 }
+
 function updateScreen() {
     let clueString = "";
     for (let i = 0; i < word.length; i++) {
@@ -44,7 +63,7 @@ function updateScreen() {
     clue.textContent = clueString;
 
     let guessArea = document.getElementById("guesses");
-    guessArea.textContent = "Guesses Letter";
+    guessArea.textContent = "Guessed letters";
 
     let image=document.getElementById("hangmanpic;")
     image.src='images/hangman${guessCount}'
