@@ -63,9 +63,24 @@ function updateScreen() {
     clue.textContent = clueString;
 
     let guessArea = document.getElementById("guesses");
-    guessArea.textContent = "Guessed letters";
+    guessArea.textContent = "Guessed letters: " + guesses;
 
-    let image=document.getElementById("hangmanpic;")
-    image.src='images/hangman${guessCount}'
+    if (clueString.indexOf("_") < 0) {
+        gameFinished = true;
+        guessArea.textContent = "You win! The word was " + word + ". Guessed letters: " + guesses;
+    }
+
+    else if (guessCount === 0) {
+        gameFinished = true;
+        guessArea.textContent = "You lose! The word was " + word + ". Guessed letters: " + guesses; 
+    }
+
+    if (gameFinished) {
+        document.getElementById("guess").disabled = true;
+        document.getElementById("guessbutton").disabled = true;
+    }
+
+    let image=document.getElementById("hangmanpic");
+    image.src = "images/hangman" + guessCount + ".gif";
 
 }
